@@ -1,7 +1,9 @@
-import { Button } from "@/components/ui/button";
-const buttonProps = {
-  destructive: "destructive",
-};
+import { UserButton } from "@clerk/nextjs";
 export default function DashboardPage() {
-  return <p>DashBoard Page(Protected)</p>;
+  return (
+    <div>
+      <p>Welcome !</p>
+      <UserButton afterSignOutUrl="/" />
+    </div>
+  );
 }
