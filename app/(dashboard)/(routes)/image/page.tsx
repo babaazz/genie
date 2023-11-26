@@ -4,25 +4,24 @@ import { Download, ImageIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Heading from "@/components/heading";
-import { Empty } from "@/components/empty";
-
 import {
   amountOptions,
   formSchema,
   optionType,
   resolutionOptions,
 } from "./constants";
+
+import Heading from "@/components/heading";
+import { Empty } from "@/components/empty";
 import { FormField, Form, FormItem, FormControl } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ChatCompletionRequestMessage } from "openai";
 import axios from "axios";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
-import { BotAvatar, UserAvatar } from "@/components/avatar";
+
 import {
   Select,
   SelectContent,
@@ -165,7 +164,7 @@ const ImageGenPage = () => {
               <Loader />
             </div>
           )}
-          {images.length === 0 && (
+          {images.length === 0 && !isLoading && (
             <div>
               <Empty label="No images generated" />
             </div>
