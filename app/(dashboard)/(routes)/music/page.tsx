@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
 
-const ConversationPage = () => {
+const MusicGenPage = () => {
   const router = useRouter();
   const [music, setMusic] = useState<string>();
 
@@ -108,4 +108,4 @@ const ConversationPage = () => {
   );
 };
 
-export default ConversationPage;
+export default MusicGenPage;
