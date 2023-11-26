@@ -1,10 +1,15 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import * as z from "zod";
+import Markdown from "react-markdown";
 import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ChatCompletionRequestMessage } from "openai";
+import axios from "axios";
+import { cn } from "@/lib/utils";
 
 import Heading from "@/components/heading";
 import { Empty } from "@/components/empty";
@@ -14,10 +19,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/loader";
 import { BotAvatar, UserAvatar } from "@/components/avatar";
-
-import { ChatCompletionRequestMessage } from "openai";
-import axios from "axios";
-import { cn } from "@/lib/utils";
 
 const CodePage = () => {
   const router = useRouter();
@@ -116,7 +117,21 @@ const CodePage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.content}</p>
+                <Markdown
+                  components={{
+                    pre: ({ node, ...props }) => (
+                      <div className=" overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                        <pre {...props} />
+                      </div>
+                    ),
+                    code: ({ node, ...props }) => (
+                      <code className=" bg-black/10 rounded-lg p-1" />
+                    ),
+                  }}
+                  className="text-sm overflow-hidden leading-7"
+                >
+                  {message.content || ""}
+                </Markdown>
               </div>
             ))}
           </div>
