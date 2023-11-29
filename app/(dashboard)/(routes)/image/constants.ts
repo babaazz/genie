@@ -49,4 +49,8 @@ export const resolutionOptions: optionType[] = [
     value: "1024x1024",
     label: "1024x1024",
   },
+  {
+    value: "1366x768",
+    label: "1366x768",
+  },
 ];

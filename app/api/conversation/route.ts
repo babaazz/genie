@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
+import { updateFreeUsageCount, checkApiLimit } from "@/lib/apiLimit";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -26,10 +27,16 @@ export async function POST(req: Request) {
       return new NextResponse("Messages are required", { status: 400 });
     }
 
+    const isFreeUsageAvailable = await checkApiLimit(userId);
+    if (!isFreeUsageAvailable)
+      return new NextResponse("Free trail has been expired", { status: 403 });
+
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages,
     });
+
+    await updateFreeUsageCount(userId);
 
     return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
