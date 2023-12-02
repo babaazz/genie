@@ -29,3 +29,13 @@ export const checkApiLimit = async (userId: string) => {
 
   return !userApiLimit || userApiLimit.count < MAX_API_LIMIT;
 };
+
+export const getFreeTrialCount = async (userId: string) => {
+  const userApiLimit = await prismaDb.userApiLimit.findUnique({
+    where: { userId },
+  });
+
+  if (!userApiLimit) return 0;
+
+  return userApiLimit.count;
+};

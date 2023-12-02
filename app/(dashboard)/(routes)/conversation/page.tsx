@@ -18,9 +18,11 @@ import axios from "axios";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
 import { BotAvatar, UserAvatar } from "@/components/avatar";
+import { useProModal } from "@/hooks/useProModal";
 
 const ConversationPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -47,7 +49,9 @@ const ConversationPage = () => {
       setMessages((current) => [...current, userMessage, response.data]);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

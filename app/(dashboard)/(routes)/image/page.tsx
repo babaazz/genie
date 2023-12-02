@@ -31,9 +31,11 @@ import {
 } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { useProModal } from "@/hooks/useProModal";
 
 const ImageGenPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
   const [images, setImages] = useState<string[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,7 +60,7 @@ const ImageGenPage = () => {
 
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      proModal.onOpen();
     } finally {
       router.refresh();
     }

@@ -7,6 +7,23 @@ module.exports = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
+  sans: [
+    "Inter",
+    "ui-sans-serif",
+    "system-ui",
+    "-apple-system",
+    "system-ui",
+    "Segoe UI",
+    "Roboto",
+    "Helvetica Neue",
+    "Arial",
+    "Noto Sans",
+    "sans-serif",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji",
+  ],
   theme: {
     container: {
       center: true,

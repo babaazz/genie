@@ -17,9 +17,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
+import { useProModal } from "@/hooks/useProModal";
 
 const VideoGenPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
   const [video, setVideo] = useState<string>();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,7 +42,7 @@ const VideoGenPage = () => {
 
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      proModal.onOpen();
     } finally {
       router.refresh();
     }
