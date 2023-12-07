@@ -15,6 +15,7 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Check, Zap } from "lucide-react";
 import { Button } from "./ui/button";
+import { toast } from "react-hot-toast";
 
 const ProModal = () => {
   const proModal = useProModal();
@@ -25,8 +26,8 @@ const ProModal = () => {
       setLoading(true);
       const response = await axios.get("/api/stripe");
       window.location.href = response.data.url;
-    } catch (error) {
-      console.log(error, "STRIPE_CLIENT_ERROR");
+    } catch (error: any) {
+      toast.error(`STRIPE_CLIENT_ERROR: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -62,7 +63,12 @@ const ProModal = () => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onClick={onSubscribe} variant="premium" className="w-full">
+          <Button
+            disabled={loading}
+            onClick={onSubscribe}
+            variant="premium"
+            className="w-full"
+          >
             Upgrade
             <Zap className="w-4 h-4 ml-2 fill-white" />
           </Button>

@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
 import { useProModal } from "@/hooks/useProModal";
+import { toast } from "react-hot-toast";
 
 const VideoGenPage = () => {
   const router = useRouter();
@@ -42,7 +43,11 @@ const VideoGenPage = () => {
 
       form.reset();
     } catch (error: any) {
-      proModal.onOpen();
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast.error("something went wrong");
+      }
     } finally {
       router.refresh();
     }
