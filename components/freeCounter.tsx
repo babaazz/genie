@@ -9,9 +9,13 @@ import { useProModal } from "@/hooks/useProModal";
 
 interface freeCounterProps {
   freeTrialCount: number;
+  isPremium: boolean;
 }
 
-const FreeCounter = ({ freeTrialCount = 0 }: freeCounterProps) => {
+const FreeCounter = ({
+  freeTrialCount = 0,
+  isPremium = false,
+}: freeCounterProps) => {
   const proModal = useProModal();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -19,6 +23,7 @@ const FreeCounter = ({ freeTrialCount = 0 }: freeCounterProps) => {
   }, []);
 
   if (!mounted) return null;
+  if (isPremium) return null;
 
   return (
     <div className="px-3">

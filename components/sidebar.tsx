@@ -65,9 +65,10 @@ const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
 interface sidebarProps {
   freeTrialCount: number;
+  isPremium: boolean;
 }
 
-const Sidebar = ({ freeTrialCount }: sidebarProps) => {
+const Sidebar = ({ freeTrialCount, isPremium }: sidebarProps) => {
   const pathname = usePathname();
   return (
     <div className="space-y-4 py-4 flex flex-col  h-full bg-[#111827] text-white">
@@ -100,7 +101,7 @@ const Sidebar = ({ freeTrialCount }: sidebarProps) => {
           ))}
         </div>
       </div>
-      <FreeCounter freeTrialCount={freeTrialCount} />
+      <FreeCounter isPremium={isPremium} freeTrialCount={freeTrialCount} />
     </div>
   );
 };

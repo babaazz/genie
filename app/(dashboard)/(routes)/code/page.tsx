@@ -102,7 +102,7 @@ const CodePage = () => {
               <Loader />
             </div>
           )}
-          {messages.length === 0 && (
+          {messages.length === 0 && !isLoading && (
             <div>
               <Empty label="No conversation started" />
             </div>

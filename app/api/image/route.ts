@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 import { updateFreeUsageCount, checkApiLimit } from "@/lib/apiLimit";
+import { checkSubscription } from "@/lib/subscription";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -28,7 +29,8 @@ export async function POST(req: Request) {
     }
 
     const isFreeUsageAvailable = await checkApiLimit(userId);
-    if (!isFreeUsageAvailable)
+    const isPremium = await checkSubscription();
+    if (!(isFreeUsageAvailable || isPremium))
       return new NextResponse("Free trail has been expired", { status: 403 });
 
     const response = await openai.createImage({
@@ -37,7 +39,7 @@ export async function POST(req: Request) {
       size: resolution,
     });
 
-    await updateFreeUsageCount(userId);
+    if (isFreeUsageAvailable) await updateFreeUsageCount(userId);
 
     return NextResponse.json(response.data.data);
   } catch (error) {

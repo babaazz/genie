@@ -5,7 +5,12 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Sidebar from "@/components/sidebar";
 import { useEffect, useState } from "react";
 
-const MobileSidebar = () => {
+interface MobilesidebarProps {
+  freeTrialCount: number;
+  isPremium: boolean;
+}
+
+const MobileSidebar = ({ freeTrialCount, isPremium }: MobilesidebarProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -24,7 +29,7 @@ const MobileSidebar = () => {
         </div>
       </SheetTrigger>
       <SheetContent side="left" className="p-0">
-        <Sidebar />
+        <Sidebar isPremium={isPremium} freeTrialCount={freeTrialCount} />
       </SheetContent>
     </Sheet>
   );
