@@ -19,8 +19,9 @@ export const LandingHero = () => {
               strings: [
                 "Chatbot.",
                 "Photo Generation.",
-                "Blog Writing.",
-                "Mail Writing.",
+                "Music Generation.",
+                "Code Generation.",
+                "Video Generation.",
               ],
               autoStart: true,
               loop: true,
@@ -34,10 +35,10 @@ export const LandingHero = () => {
       <div>
         <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
           <Button
-            variant="secondary"
+            variant="premium"
             className="md:text-lg p-4 md:p-6 rounded-full font-semibold"
           >
-            Start Generating For Free
+            {isSignedIn ? "Go to Dashboard" : "Sign Up"}
           </Button>
         </Link>
       </div>
